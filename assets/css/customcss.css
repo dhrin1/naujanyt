@@ -1,0 +1,115 @@
+.nav-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding-top: 10px; 
+}
+.active-link{
+	border-bottom: 3px solid  #8BC34A;
+  margin-top:8px;
+}
+.active-nav{
+    border-right: 3px solid #337AB7;
+    background: #EEEEEE;
+  }
+.modal-content{
+	border-radius: 0px !important;
+}
+.hide{
+  display: none;
+}
+.btn-ctrl{
+  margin-top: 10px;
+  border: 1px solid #D5D5D5;
+  color: #FFFFFF;
+  border-radius: 15px !important;
+}
+.non-resize{
+  resize: none;
+}
+
+a{
+  text-decoration: none !important;
+}
+.sk-background{
+  background-image: url('../../assets/images/background/bg-sk.png'); 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  height: 30vh; 
+}
+.borderless td, .borderless th {
+    border: none !important; 
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.text-warning{
+  color: #FFF200 !important;
+}
+
+.text-success{
+  color: #22B14C !important;
+}
+
+.text-primary{
+  color: #1A86DB !important;
+}
+
+.input-none{
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  caret-color: var(--cr-input-focus-color);
+  color: var(--cr-input-color);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  min-height: var(--cr-input-min-height, auto);
+  outline: none;
+  padding-bottom: var(--cr-input-padding-bottom, 6px);
+  padding-inline-end: var(--cr-input-padding-end, 8px);
+  padding-inline-start: var(--cr-input-padding-start, 8px);
+  padding-top: var(--cr-input-padding-top, 6px);
+  text-align: inherit;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot');
+  src: url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+/* Customize website's scrollbar like Mac OS
+Not supports in Firefox and IE */
+
+/* total width */
+*::-webkit-scrollbar {
+    background-color:#fff;
+    width:10px;
+}
+
+/* background of the scrollbar except button or resizer */
+*::-webkit-scrollbar-track {
+    background-color:#fff;
+}
+
+/* scrollbar itself */
+*::-webkit-scrollbar-thumb {
+    background-color:#B0B0B0;
+    border-radius:18px;
+    border:2px solid #fff;
+}
+
+/* set button(top and bottom of the scrollbar) */
+*::-webkit-scrollbar-button {display:none}
+
+::-webkit-scrollbar             {/* entire scrollbar scope */}
+::-webkit-scrollbar-button      {/* directional buttons at the top and bottom of the scrollbar */}
+::-webkit-scrollbar-track       {/* space below the scrollbar */}
+::-webkit-scrollbar-track-piece {/* not covered area by the scrollbar-thumb */}
+::-webkit-scrollbar-thumb       {/* draggable scrollbar itself */}
+::-webkit-resizer               {/* resizser at the bottom of the scrollbar */}
+::-webkit-scrollbar-corner      {/* bottom of the scrollbar without resizse */}

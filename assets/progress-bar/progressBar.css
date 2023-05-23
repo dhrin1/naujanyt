@@ -1,0 +1,31 @@
+.progress-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #29d;
+    box-shadow: 0 0 3px #29d;
+    border: 1px solid black;
+
+    
+}
+.text {
+  position: absolute;
+   /*position: fixed;*/
+   padding-top: 40px;
+   padding-left: -50px; 
+   
+          
+}
+.round-progress {
+    fill: none;
+    stroke: #29d;
+    stroke-width: 5;
+    stroke-dasharray: 1000;
+}
+.svg {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-90deg);
+}

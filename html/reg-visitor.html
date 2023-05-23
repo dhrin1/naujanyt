@@ -1,0 +1,133 @@
+<div class="container">
+    <div class="row pb-2">
+        <div class="col-md-4 py-5 bg-success text-white text-center ">
+            <div class=" ">
+                <div class="card-body">
+                    <img src="assets/images/logo/sk.png" width="20%;">
+                        <h2 class="py-3">Registration</h2>
+                        <p>SK and Katipunan ng Kabataan (KK) were created through the Local Government Code of 1991
+(Republic Act 7160) that provides opportunity for young people to directly participate in local governance;
+Composed of all youth aged 15 to 21-year-olds.
+                        </p>
+                </div>
+            </div>
+         </div>
+        <div class="col-md-8 py-5 border">
+            <h4 class="pb-4 ml-3">Please fill with your details</h4>
+            <div class="col-md-12">
+                <div id="msg-frm"></div>
+                <form id="frm-reg-vi">
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="info">
+                            <div class="row">
+                                 <div class="form-group col-md-4">
+                                    <label>Firstname</label>
+                                    <input type="text" name="fname" class="form-control" id="fname" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control">
+                                </div>  
+                                 <div class="form-group col-md-4">
+                                    <label>Lastname</label>
+                                    <input type="text" name="lname" class="form-control" id="lname" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control">
+                                </div> 
+                                 <div class="form-group col-md-4">
+                                    <label>Gender</label>
+                                   <div class="d-flex pt-1">
+                                       <p class="pr-3"><input type="radio" name="gender" checked="" value="Male"> Male</p>
+                                       <p class="pr-3"> <input type="radio" name="gender" value="Female"> Female</p>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>Permanent Address</label>
+                                    <textarea name="paddress"  class="form-control" id="paddress" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control" ></textarea>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Contact No / Tel. No</label>
+                                    <input type="text" name="contact" class="form-control" id="cntno" required data-parsley-type="number" data-parsley-trigger="keyup">
+                                </div> 
+                                 <div class="form-group col-md-4">
+                                    <label>Date of Birth</label>
+                                    <input type="date" name="dob" class="form-control" id="dob" required data-parsley-trigger="keyup" class="form-control">
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="account">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" id="email" required data-parsley-type="email" data-parsley-trigger="keyup" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" id="password" required  data-parsley-length="[8,16]" data-parsley-trigger="keyup" class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="cpassword" class="form-control" id="cpassword" required data-parsley-equalto="#password"  data-parsley-trigger="keyup" class="form-control">
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="nav nav-tabs border-0 float-right">
+                        <input type="hidden" name="action" value="letresgiterthesuserbyregular">
+                       
+                        <a data-toggle="tab" class="nav-item btn-prev hide cursor-pointer btn-sm">Previuos</a>
+                        <a data-toggle="tab"  class="nav-item btn-next cursor-pointer btn-sm">Next</a>
+                        <button type="submit" name="btn-submit" id="btn-submit" class="btn btn-success float-right hide ml-2">Done</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(()=>{
+        $('#frm-reg-vi').parsley();
+        $('.btn-next').click(function(){
+            var bool = false;
+            if($('#fname').parsley().isValid() && $('#lname').parsley().isValid() && $('#paddress').parsley().isValid() &&   $('#cntno').parsley().isValid() && $('#dob').parsley().isValid() ){
+                bool = true;
+            }else{
+                message('#msg-frm', 'Please specify all fields needed', 'danger');
+                return false;
+            }
+            if(bool){  $(this).attr('href', '#account'); $(this).addClass('hide'); $('.btn-prev').removeClass('hide'); $('#btn-submit').removeClass('hide');   }
+        });
+
+        $('.btn-prev').click(function(){
+             $(this).attr('href', '#info'); $(this).addClass('hide');  $('.btn-next').removeClass('hide');    $('#btn-submit').addClass('hide'); 
+        });
+        $(document).on('submit', '#frm-reg-vi', function(event){
+            event.preventDefault();
+            if($('#frm-reg-vi').parsley().isValid()){
+                $.post('function/function.php', $(this).serialize(), function(data){
+                    if(data == 'ok'){
+                        $('#msg-frm').html('<div class="alert alert-success">Successfully Registered</div>');
+                        $('#btn-submit').attr('disabled', true);
+                        setTimeout(function(){
+                            window.location = 'signin';
+                        },3000);
+                       
+                    }else{
+                        message('#msg-frm', data, 'danger');
+                    }
+                });
+              
+            }else{
+                message('#msg-frm', 'Please specify all fields needed', 'danger');
+            }
+            
+        });
+
+
+    });
+</script>
+
+
+
+    

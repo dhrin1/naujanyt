@@ -1,0 +1,34 @@
+<div class="col-md-7">
+	<a href="" class=" text-muted btn pull-right"><span class="fa fa-angle-left"></span> Back</a>
+	<h4>Create</h4>
+	<div id="msg-alert"></div>
+	<div class="row">
+		<form method="post" id="frm-group-cntrl">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>City</label>
+					<input name="city" class="form-control"></input>
+				</div>
+				<div class="form-group">
+					<label>State</label>
+					<textarea name="state" class="form-control" ></textarea>
+				</div>	
+				<div class="form-group">
+					<input type="hidden" name="action" value="getrequestocreategroup">
+					<input type="submit" class="btn btn-primary " value="Create">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Page Role</label>
+					<p><input type="checkbox" name="security" checked=""> Authorization</p>
+					<p><input type="checkbox" name="post" checked=""> Publication</p>
+					<p><input type="checkbox" name="assign" checked=""> Assign Admin</p>
+					<p><input type="checkbox" name="banned" checked=""> Banned Users</p>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+<script  src="../../script/group.js"></script>

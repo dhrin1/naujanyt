@@ -1,0 +1,128 @@
+
+<div class="col-md-10">
+	<a href="group" class="pull-right btn text-muted">Back</a>
+	<h4>Member - <a id="grp-title" class="cursor-pointer"></a></h4>
+
+	<div class="row" id="ld-col-mmber"></div>
+</div>
+<style type="text/css">
+	#mdl-info-char .modal-body  small{
+		color:#777777!important;
+	}
+</style>
+<div class="modal" id="mdl-info-char">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header"><h4>Profile <a href="" class="close pull-right" data-dismiss="modal">&times;</a></h4></div>
+			<div class="modal-body media">
+				<div id="msg-alert-activation"></div>
+				<div class="media-left">
+					<span class="fa fa-user-circle fa-5x text-muted"></span>
+				</div>
+				<div class="media-body">
+					<div class="row">
+						<div class="col-md-5 form-group">
+							<h5 id="fname"></h5>
+							<small>Fullname</small>
+						</div>
+						<div class="col-md-3 form-group">
+							<h5 id="desig"></h5>
+							<small>Designation</small>
+						</div>
+						<div class="col-md-4 form-group">
+							<h5 id="nterm">1</h5>
+							<small>Number Term</small>
+						</div>
+					</div>
+				
+					<div class="row">
+						
+						<div class="col-md-3 form-group">
+							<h5 id="gen"></h5>
+							<small>Gender</small>
+						</div>	
+						<div class="col-md-5 form-group">
+							<h5 id="dob"></h5>
+							<small>Date of Birth</small>
+						</div>
+						<div class="col-md-4 form-group">
+							<h5 id="cnt"></h5>
+							<small>Phone Number</small>
+						</div>
+
+					</div>
+
+					<hr>
+					<div class="row">
+						<div class="col-md-7 form-group">
+							<h5 id="padd"></h5>
+							<small>Permanent Address</small>
+						</div>
+						<div class="col-md-3 form-group">
+							<h5 id="email"></h5>
+							<small>Email Address</small>
+						</div>
+
+						<div class="col-md-5 form-group">
+							<h5 id="city"></h5>
+							<small>City/Municipality</small>
+						</div>
+						<div class="col-md-6 form-group">
+							<h5 id="brgy"></h5>
+							<small>State/Brgy</small>
+						</div>
+						
+					</div>
+					<hr>
+					<label id="lbl-id-holder" class="hide"></label>
+					<div id="ld-ctrl-ver"></div>
+					<!-- <button class="btn btn-primary pull-right">Approved</button> -->
+				</div>
+
+			</div>
+			<div class="panel-footer"></div>
+		</div>
+	</div>
+</div>
+<script>
+	$(()=>{
+		
+		
+
+		let loadcomponentmemberRequest = async (id = '') => await $.post('../../function/function.php', {load:'loadcomponentmemberRequest', id:id }, function(data){
+			(data.title === null) ? window.location = 'group' : '';
+			$('#grp-title').text('Brgy. '+ data.title);
+			$('#ld-col-mmber').html(data.colSpan);
+		}, 'json');
+
+		loadcomponentmemberRequest(getUrlParameters()["i"]);
+
+		$(document).on('click', '#btn-view-info-member', function(){
+			let id  = $(this).data('vid');
+			$('#mdl-info-char').modal({
+				keyboard: false,
+				backdrop: 'static'
+			});
+			
+			loadtheaccountinfoRequest(id);
+
+		});
+
+		$(document).on('click', '#btn-apr-b-admin', function(){
+			let id = $(this).data('vid');
+			$.post('../../function/function.php', {action:'letapprovedadminsubadminfromgroup', id:id}, function(data){
+				loadcomponentmemberRequest(getUrlParameters()["i"]);
+				message('#msg-alert-activation', data, 'success');
+				loadtheaccountinfoRequest($('#lbl-id-holder').text());
+			});
+			
+		});
+
+		let loadtheaccountinfoRequest = async (id) => await $.post('../../function/function.php', {load:'loadtheaccountinfoRequest', id:id},function(data){
+			$('#fname').text(data.fname); $('#desig').text(data.desig); $('#nterm').text(data.term); $('#gen').text(data.gender); $('#dob').text(data.dob);
+			$('#padd').text(data.address); $('#email').text(data.email); $('#city').text(data.city); $('#brgy').text(data.state); $('#cnt').text(data.contact);
+			$('#ld-ctrl-ver').html(data.verify);
+			$('#lbl-id-holder').text(id);
+		}, 'json');
+	});
+</script>

@@ -1,0 +1,151 @@
+<div class="container">
+        <div class="row pb-3">
+            <div class="col-md-4 py-5 bg-primary text-white text-center ">
+                <div class=" ">
+                    <div class="card-body">
+                        <img src="assets/images/logo/sk.png" width="20%;">
+                        <h2 class="py-3">SK Officials Registration</h2>
+                        <p>SK and Katipunan ng Kabataan (KK) were created through the Local Government Code of 1991
+(Republic Act 7160) that provides opportunity for young people to directly participate in local governance;
+Composed of all youth aged 15 to 21-year-olds.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 py-5 border">
+                <h4 class="pb-4 ml-3">Please fill with your details</h4>
+                <form id="reg_form_member" method="post" enctype="multipart/form-data">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label>First Name</label>
+                                <input type="text" name="fname" id="fname" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Middle Name</label>
+                                <input type="text" name="mname" id="mname" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Last Name</label>
+                                <input type="text" name="lname" id="lname" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <label>Permanent Address</label>
+                                 <textarea rows="2" name="address" id="address" required data-parsley-pattern="^(?:[A-Za-z]+[ -]*[A-Za-z])+$" data-parsley-trigger="keyup" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Gender</label>
+                                <select name="gender" id="gender" required data-parsley-pattern="^[a-zA-Z]+$" data-parsley-trigger="keyup" class="form-control" >
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label>Date of Birth</label>
+                                 <input type="date" name="dob" id="dob" required data-parsley-trigger="keyup" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <label>Contact Number</label>
+                                <input type="text"  name="contact" id="contact" class="form-control" required data-parsley-type="number" data-parsley-trigger="keyup">
+                            </div>
+                        </div>
+                       <hr>
+                      
+                       <div class="row">
+                            <div class="form-group col-sm-3">
+                                <label>City</label>
+                                <select name="city" id="city"  required  class="form-control">
+                                 </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label>State</label>
+                                <select name="state" id="state"  required  class="form-control">
+                                 </select>
+                            </div>
+                           <div class="form-group col-sm-3">
+                                <label>Designation</label>
+                                <select id="designation" name="designation"  required data-parsley-trigger="keyup" class="form-control">
+                                    <option value="Chairman">Chairman</option>
+                                    <option value="Counselor">Counselor</option>
+                                    <option value="Secretary">Secretary</option>
+                                    <option value="Tresurer">Tresurer</option>
+                                </select>
+                           </div>
+                            <div class="form-group col-sm-3">
+                                <label>Term</label>
+                                <input type="number" name="term" id="term" class="form-control" required data-parsley-type="number" data-parsley-trigger="keyup" value="1">
+                            </div>
+                       </div>
+                       <hr>
+                       <div class="row">
+                           <div class="form-group  col-sm-6">
+                               <label>Email</label>
+                               <input type="text" name="email" id="email" required data-parsley-type="email" data-parsley-trigger="keyup" class="form-control">
+                           </div>  
+                       </div>
+                       <div class="row">
+                           <div class="form-group  col-sm-6">
+                               <label>Password</label>
+                               <input type="password" name="password" id="password"  data-parsley-length="[8,16]" data-parsley-trigger="keyup" class="form-control">
+                           </div>
+                             <div class="form-group  col-sm-6">
+                               <label>Confirm Password</label>
+                               <input type="password" name="cpassword" id="cpassword" data-parsley-equalto="#password"  data-parsley-trigger="keyup" class="form-control">
+                           </div>
+                       </div>
+                       <hr>
+                        <div class="form-group">
+                            <input type="hidden" name="action" value="letmemberegisterthenewgroup">
+                            <input type="submit" id="submit" name="submit" value="Submit" class="btn btn-success" />
+                        </div>
+                    </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+
+<script> 
+    $(()=>{  
+
+        
+
+        
+        let loadthedesignatedcitylidbgetdrop = async (parse) => await $.post('function/function.php',{load:'loadthedesignatedstatelidbgetdrop', parse:parse}, function(data){
+            $('#city').empty();
+            for(var i = 0; i < data.length; i++){
+                $('#city').append("<option>"+data[i]["city"]+"</option>");
+                loadthedesignatedstatelidbgetdrop($('#city option:selected').val(), 'getState');
+            }
+        },'json');
+
+        let loadthedesignatedstatelidbgetdrop = async (city, parse) => await $.post('function/function.php',{load:'loadthedesignatedstatelidbgetdrop', city:city, parse:parse}, function(data){
+            $('#state').empty();
+            for(var i = 0; i < data.length; i++){
+                $('#state').append("<option value="+data[i]["id"]+">"+data[i]["state"]+"</option>");
+            }
+            
+        },'json');
+
+        loadthedesignatedcitylidbgetdrop('getCity');
+
+        $(document).on('change', '#city', function(){
+            let city = $('#city option:selected').val();
+            loadthedesignatedstatelidbgetdrop(city, 'getState');
+        });
+
+        $('#reg_form_member').parsley();
+        $('#reg_form_member').on('submit', function(event){
+            event.preventDefault();
+            if($('#reg_form_member').parsley().isValid()){
+                $.post('function/function.php', $(this).serialize(), function(data){
+                    window.location = 'group';
+                });
+            }
+        });
+    });  
+</script>
+    
